@@ -1,0 +1,95 @@
+<header class="header-global">
+    <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light navbar-theme-primary headroom py-lg-2 px-lg-6 headroom--not-bottom headroom--top">
+        <div class="container">
+            <a class="navbar-brand" href="./index.html">
+                <img class="navbar-brand-dark" src="./assets/img/brand/light.svg" alt="LinkAgro light">
+                <img class="navbar-brand-light" src="./assets/img/brand/primary.svg" alt="LinkAgro dark"></a>
+            <div class="navbar-collapse collapse" id="navbar_global">
+                <div class="navbar-collapse-header">
+                    <div class="row">
+                        <div class="col-6 collapse-brand">
+                            <a href="{% url 'home' %}"><img src="./assets/img/brand/primary.svg" alt="LinkAgro"></a>
+                        </div>
+                        <div class="col-6 collapse-close">
+                            <a href="#navbar_global" role="button" class="fa fa-times" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation"></a>
+                        </div>
+                    </div>
+                </div>
+                <ul class="navbar-nav navbar-nav-hover m-auto">
+                    <li class="nav-item"><a href="./index.html" class="nav-link"><span class="nav-link-inner-text">Pagina inicial</span></a></li>
+                    <li class="nav-item"><a href="./html/pages/about.html" class="nav-link"><span class="nav-link-inner-text">Productos</span></a></li>
+                    <li class="nav-item"><a href="./html/pages/our-mission.html" class="nav-link"><span class="nav-link-inner-text">Sobre nós</span></a></li>
+                </ul>
+            </div>
+            <div class="d-none d-lg-block">                
+                <ul class="navbar-nav navbar-nav-hover m-auto">
+                    <li class="nav-item dropdown">                        
+                        <a href="#" class="nav-link btn btn-sm btn-warning animate-up-2 ml-3" data-toggle="dropdown" role="button"><i class="fa fa-user-o mr-2" aria-hidden="true"></i>{{ request.user.username }} <i class="fa fa-angle-down nav-link-arrow"></i></a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item"><a href="./html/pages/updates.html" class="dropdown-item">Perfil</a></li>
+                            <li class="nav-item"><a href="./html/pages/about.html" class="dropdown-item">Login</a></li>
+                            <li class="nav-item"><a href="./html/pages/our-mission.html" class="dropdown-item">Cadastrar-se</a></li>
+                            <li class="nav-item"><a href="./html/pages/donate.html" class="dropdown-item">Support</a></li>
+                            <!-- <li class="dropdown-submenu"><a href="#" class="dropdown-toggle dropdown-item d-flex justify-content-between align-items-center" aria-haspopup="true" aria-expanded="false">Authentication<i class="fa fa-angle-right nav-link-arrow"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="./html/pages/sign-in.html" class="dropdown-item">Sign In</a></li>
+                                    <li><a href="./html/pages/sign-up.html" class="dropdown-item">Sign Up</a></li>
+                                    <li><a href="./html/pages/forgot-password.html" class="dropdown-item">Forgot password</a></li>
+                                </ul>
+                            </li> -->
+                        </ul>
+                    </li> 
+                </ul>
+            </div>
+            
+            <div class="d-flex d-lg-none align-items-center" style="flex-direction: column;">                                
+                <ul class="navbar-nav navbar-nav-hover m-auto" style="right: 68px; position: absolute;">
+                    <li class="nav-item dropdown">                        
+                        <a href="#" class="nav-link btn btn-sm btn-secondary animate-up-2 ml-3" data-toggle="dropdown" role="button"><i class="fa fa-user-o mr-2" aria-hidden="true"></i>{{ request.user.username }} <i class="fa fa-angle-down nav-link-arrow"></i></a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item"><a href="./html/pages/updates.html" class="dropdown-item">Perfil</a></li>
+                            <li class="nav-item"><a href="./html/pages/about.html" class="dropdown-item">Login</a></li>
+                            <li class="nav-item"><a href="./html/pages/our-mission.html" class="dropdown-item">Cadastrar-se</a></li>
+                            <li class="nav-item"><a href="./html/pages/donate.html" class="dropdown-item">Support</a></li>
+                            <!-- <li class="dropdown-submenu"><a href="#" class="dropdown-toggle dropdown-item d-flex justify-content-between align-items-center" aria-haspopup="true" aria-expanded="false">Authentication<i class="fa fa-angle-right nav-link-arrow"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="./html/pages/sign-in.html" class="dropdown-item">Sign In</a></li>
+                                    <li><a href="./html/pages/sign-up.html" class="dropdown-item">Sign Up</a></li>
+                                    <li><a href="./html/pages/forgot-password.html" class="dropdown-item">Forgot password</a></li>
+                                </ul>
+                            </li> -->
+                        </ul>
+                    </li> 
+                </ul>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            </div>
+        </div>
+    </nav>
+    <nav id="navbar-sub" class="navbar navbar-sub navbar-expand-lg navbar-transparent navbar-light" style="padding-top: 70px;">
+        <div class="container">            
+            <div class="navbar-collapse collapse" id="navbar_global">           
+                <ul class="navbar-nav navbar-nav-hover m-auto">
+                    <li class="nav-item dropdown"><a href="#" class="nav-link" data-toggle="dropdown" role="button"><span class="nav-link-inner-text mr-1">Todas as Categorias</span> <i class="fa fa-angle-down nav-link-arrow"></i></a>
+                        <ul class="dropdown-menu">                            
+                            {% for categoria in categorias %}      
+                                <li class="dropdown-submenu"><a href="#" class="dropdown-toggle dropdown-item d-flex justify-content-between align-items-center" aria-haspopup="true" aria-expanded="false">{{ categoria.nome }}<i class="fa fa-angle-right nav-link-arrow"></i></a>
+                                    <ul class="dropdown-menu">
+                                        {% for subcategoria in categoria.subcategorias.all %}
+                                            <li><a href="./html/pages/sign-in.html" class="dropdown-item">{{ subcategoria.nome }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}                            
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex col-lg-6" role="search">
+                    <div class="input-group">                        
+                        <input type="text" class="form-control" id="exampleInputIconRight" placeholder="Search" aria-label="Search" aria-describedby="basic-addon2">
+                        <span class="input-group-text" id="basic-addon2"><span class="fa fa-search"></span></span>
+                    </div>
+                </form>
+            </div>            
+        </div>
+    </nav>
+</header>

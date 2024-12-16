@@ -1,0 +1,140 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+
+{% block body %}
+<main>
+    <!-- Hero -->
+    <section class="section-header bg-soft text-dark">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 d-md-none">
+                    <h1 class="display-2 font-weight-bold mb-0">Conectando Produtores e Compradores.</h1></div>
+                <div class="col-8 col-md-7 col-lg-6 order-lg-1">
+              
+                    <h1 class="display-2 font-weight-bold d-none d-md-inline">Conectando Produtores e Compradores.</h1>
+    
+                    <p class="lead text-muted mt-4">Descubra produtos agrícolas e facilite sua logística.
+                        <br class="d-none d-lg-inline"></p>
+    
+                    <div class="mt-4 mt-lg-5 mb-5 mb-lg-0">
+                        <a href="#" class="btn btn-md btn-primary animate-up-2 mr-3"><span class="btn-inner-text"><i class="fa fa-book-reader mr-2"></i>Veja os Produtos</span> </a>
+                        <a href="#" class="btn btn-md btn-white animate-up-2 d-none d-lg-inline-block"><span class="btn-inner-text"><i class="fa fa-file-download mr-2"></i>Cadastre-se Agora</span></a>
+                    </div>
+                </div>
+                <div class="col-4 col-md-5 col-lg-6 order-lg-2">
+                    <img src="https://demo.themesberg.com/leaf/assets/img/forest.svg" class="img-fluid mb-lg-6 mb-0" alt="Forest Illustration"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-lg py-0">
+        <div class="container mt-n5 mt-md-n6">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Card -->
+                    <div class="card-group">
+                        {% for produto in produtos %}
+                            <div class="card border-left-md border-soft">
+                                <div class="card-body text-center">
+                                    <h6 class="font-weight-bold mb-2">{{ produto.nome }}</h6>                                    
+                                    <h2 class="text-gray mb-0">
+                                        <span class="icon-danger mr-2"><i class="fas fa-long-arrow-alt-up"></i></span>
+                                        <span class="counter display-6 mr-2">{{ produto.preco_por_unidade }}</span>kg - 
+                                        <span class="counter display-6 mr-2">{{ produto.preco_final }}</span>Mzn
+                                    </h2>
+                                    <span class="text-center text-muted mb-0">{{ produto.localizacao }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}            
+                    </div>
+                </div>
+            </div>
+            {% comment %} <h1>Produtos</h1>
+                <ul>
+                    {% for produto in produtos %}
+                        <li>
+                            {{ produto.nome }} - 
+                            {% if produto.categoria %}
+                                {% if produto.categoria.categoria_pai %}
+                                    {{ produto.categoria.categoria_pai.nome }}
+                                {% else %}
+                                    {{ produto.categoria.nome }} (Categoria Principal)
+                                {% endif %}
+                            {% else %}
+                                Sem categoria
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul> {% endcomment %}
+        </div>
+    </section>
+    <div class="section section-lg py-5">
+    <div class="container">
+        <div class="row justify-content-between">
+            {% for produto in produtos %}
+                <div class="col-12 col-sm-8 col-lg-4 mb-5">
+                    <!-- card -->
+                    <div class="card border-light">
+                        <div class="card-header bg-soft border-0">
+                            {% if produto.imagens.exists %} {% for imagem in produto.imagens.all %}<img src="{{ imagem.imagem.url }}" alt="Beats speakers" style="height: 260px; object-fit: cover;">{% endfor %}{% endif %}
+                        </div>
+                        <div class="card-body border-top border-light"><a href="#" class="h5">{{ produto.nome }}</a>
+                            <h3 class="h6 font-weight-light text-gray mt-2">{{ produto.localizacao }} <span class="small text-warning"> Quantidade disponivel: {{ produto.quantidade_disponivel }}</span></h3>
+                            <div class="d-flex mt-3">
+                                <!-- <span class="star fa fa-star text-warning mr-1"></span>
+                                <span class="star fa fa-star text-warning mr-1"></span>
+                                <span class="star fa fa-star text-warning mr-1"></span>
+                                <span class="star fa fa-star text-warning mr-1"></span>
+                                <span class="star fa fa-star text-warning"></span>
+                                <span class="badge badge-pill badge-gray ml-2">4.7</span> -->
+                                <span class="text-success"><span class="fa fa-truck mr-1"></span>Frete gratís</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="h5 mb-0 text-gray text-through mr-2">{{ produto.preco_por_unidade }} MZN</span>
+                                <span class="h6 mb-0 text-danger">{{ produto.preco_final }} MZN</span>
+                                <div class="ml-auto">
+                                    <button class="btn btn-icon-only btn-primary" type="button" aria-label="add to cart button" title="add to cart button">
+                                        <span aria-hidden="true" class="fa fa-cart-plus"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- card -->
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</main>
+{% endblock body %}
+    
+    {% block scripts %}
+    <script src="https://demo.themesberg.com/leaf/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script id="" text="" charset="" type="text/javascript" src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/headroom.js/dist/headroom.min.js"></script>
+    <!-- <script src="{% static 'assets/vendor/node_modules/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/node_modules/popper.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/node_modules/bootstrap.min.js' %}"></script> -->
+    <!-- Vendor JS -->
+    <script src="https://demo.themesberg.com/leaf/node_modules/onscreen/dist/on-screen.umd.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/nouislider/distribute/nouislider.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/jarallax/dist/jarallax.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/jquery.counterup/jquery.counterup.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/jquery-countdown/dist/jquery.countdown.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/chartist/dist/chartist.js"></script>    
+    <script src="https://demo.themesberg.com/leaf/node_modules/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/prismjs/prism.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/jqvmap/dist/jquery.vmap.min.js"></script>
+    <script src="https://demo.themesberg.com/leaf/node_modules/jqvmap/dist/maps/jquery.vmap.world.js"></script>    
+    {% endblock scripts %}
+        
+    
